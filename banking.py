@@ -1,46 +1,54 @@
 print("Banking application")
 
 class Banking:
-    BankName = "CITI"
-    Location = "Nizampet, Hyderabad"    
+    UseBankName = "CITI"
+    UserAccountName = "Abhiram"
+    UserBalance = 10000
+    UserAccountNumber = 13254
+    UserBankLocation = "Nizampet, Hyderabad"   
+    BankList = []
     
-    def __init__(self):
-        self.Balance = 2000
-        self.AccountNumber = 13254
-        self.AccountName = "Abhiram"
-        self.AmountTransferable = 200
-        self.AmountReceivable = 500
+    def __init__(self, bankname, transactionfee):
+        self.bankname = bankname
+        self.transactionfee = transactionfee
+       # self.AmountTransferable = 200
+       # self.AmountReceivable = 500
         
     def BankInfo(self):
-        print("Name of the bank" + Banking.BankName)
-        print("Branch Location" + Banking.Location)
+        print("Name of the bank" + self.bankname)
+        #print("Branch Location" + Banking.Location)
         
-    def AccountInfo(self):
-        print("Account Holder: " + self.AccountName)
-        print("Account Number: " + str(self.AccountNumber))
-        print("Balance: " + str(self.Balance))
+
+    def SendMoney(self, send):
+        Banking.UserBalance = Banking.UserBalance - send
+        print("Remaining Balance: " + str(Banking.UserBalance))
         
-    def SendMoney(self):
-        self.Balance = self.Balance - self.AmountTransferable
-        print("Remaining Balance: " + str(self.Balance))
+    def ReceiveMoney(self, amtreceived):
+        Banking.UserBalance = Banking.UserBalance + amtreceived
+        print("Updated Balance: " + str(Banking.UserBalance))
         
-    def ReceiveMoney(self):
-        self.Balance = self.Balance + self.AmountReceivable
-        print("Updated Balance: " + str(self.Balance))
-        
+
+ 
+#Banking.BankList.append(Banking('ICICI', 10))
     
-Bank = Banking()
+    
+bank = Banking('ICICI', 10)
+
+#bank.BankInfo()
+#Bank = Banking()
 
 while True:
     result = input("Enter (B) BankInfo, (A) AccountInfo, (S) Send Money, (R) Received Money")
     if result == 'B' or result == 'b':
-        Bank.BankInfo()
+        bank.BankInfo()
     elif result == 'A' or result == 'a':
-        Bank.AccountInfo()
+        bank.AccountInfo()
     elif result == 'S' or result == 's':
-        Bank.SendMoney()
+        send = int(input("Enter the amount you want to transfer "))
+        bank.SendMoney(send)
     elif result == 'R' or result == 'r':
-        Bank.ReceiveMoney()
+        receive = int(input("Enter the amount you want to receive "))
+        bank.ReceiveMoney(receive)
     else:
         print("Entered wromg input")
         break
